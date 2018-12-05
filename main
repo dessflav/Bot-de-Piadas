@@ -1,0 +1,34 @@
+import requests
+import telepot
+from random import randint
+from bs4 import BeautifulSoup
+from telepot.loop import MessageLoop
+from unicodedata import normalize
+
+token = '791343877:AAGTLHGSGK6Ga5_zppQi9c9PMvEK26O0b7k'
+bot = telepot.Bot(token)
+msg = bot.getUpdates()
+print("Bot iniciado!\n")
+
+url = 'https://www.osvigaristas.com.br/piadas/' #Link do site utilizado
+
+def piada():
+    num = randint (0,25) #seleciona de forma aleatoria uma piada
+    pagina = url
+    html = requests.get(pagina)
+    bs = BeautifulSoup(html.content, 'html.parser')
+    todaspiadas = bs.findAll('div', {'class':'joke'})
+    text = todaspiadas[num].text
+    return text #Retorna a piada aqui
+
+
+def recebeMSG(msg):
+    mensagem = msg['text'].lower() #transforma a mensagem em minusculo
+    id_chat = msg['from']['id'] #pega o id de qualquer pessoa que mandar a mensagem
+                                #e usa pra responder pra ela
+
+    if mensagem == "/piada":  # /start é o comando pra iniciar, geralmente tem um texto
+        bot.sendMessage(id_chat, piada()) 
+    
+bot.message_loop(recebeMSG) # fica num loop de chegar as mensagens
+
