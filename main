@@ -5,10 +5,10 @@ from bs4 import BeautifulSoup
 from telepot.loop import MessageLoop
 from unicodedata import normalize
 
-token = '791343877:AAGTLHGSGK6Ga5_zppQi9c9PMvEK26O0b7k'
+token = 'Insert your token here'
 bot = telepot.Bot(token)
 msg = bot.getUpdates()
-print("Bot iniciado!\n")
+print("O Bot foi iniciado!\n")
 
 url = 'https://www.osvigaristas.com.br/piadas/' #Link do site utilizado
 
